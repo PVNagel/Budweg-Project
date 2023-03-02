@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace BudwegErrorLoggingSystem.Models
 {
-    internal class Person
+    public class Person
     {
+        public string Name { get; set; }
+
+        public int Phonenumber { get; set; }
+
+        public string Email { get; set; }
     }
 }
