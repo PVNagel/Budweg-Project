@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BudwegErrorSystem.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,15 @@ namespace BudwegErrorLoggingSystem
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            MainWindow = new MainWindow
+            {
+                DataContext = new ReportsViewVM()
+            };
+            MainWindow.Show();
+
+            base.OnStartup(e);
+        }
     }
 }
