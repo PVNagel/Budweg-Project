@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace BudwegErrorLoggingSystem.Models
 {
-    public class Worker: Person
+    // Worker class
+    public class Worker : Person
     {
         public int WorkerID { get; set; }
 
