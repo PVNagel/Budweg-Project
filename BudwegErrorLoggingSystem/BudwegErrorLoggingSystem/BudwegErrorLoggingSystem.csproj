@@ -12,4 +12,8 @@
     <Folder Include="Persistens\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="DropdownMenu.WPF" Version="1.0.0" />
+  </ItemGroup>
+
 </Project>
