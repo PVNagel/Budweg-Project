@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BudwegErrorLoggingSystem.Models;
 
-namespace BudwegErrorLoggingSystem.Models
+namespace BudwegErrorLoggingSystem.Persistens
 {
     public class LeaderRepository
     {
@@ -22,10 +23,10 @@ namespace BudwegErrorLoggingSystem.Models
         {
             Leader result = null;
 
-            foreach(Leader leader in leaders)
+            foreach (Leader leader in leaders)
             {
-                if(leader.Id == Id)
-                
+                if (leader.Id == Id)
+
                     result = leader;
                 break;
             }
@@ -35,9 +36,9 @@ namespace BudwegErrorLoggingSystem.Models
         {
             leaders.RemoveAt(Id);
 
-            foreach(Leader leader in leaders)
+            foreach (Leader leader in leaders)
             {
-                if(leader.Id == Id)
+                if (leader.Id == Id)
                 {
                     leaders.Remove(leader);
                     break;
@@ -46,9 +47,9 @@ namespace BudwegErrorLoggingSystem.Models
         }
         public void Update(int Id, string name, int phonenumber, string email)
         {
-            foreach(Leader leader in leaders)
+            foreach (Leader leader in leaders)
             {
-                if(leader.Id == Id)
+                if (leader.Id == Id)
                 {
                     leader.Name = name;
                     leader.Phonenumber = phonenumber;
