@@ -14,7 +14,7 @@ namespace BudwegErrorLoggingSystem.Models
         public Worker() { }
         public Worker(int workerId, string name, int phoneNumber, string email)
         {
-            WorkerId = workerId;
+            Id = workerId;
             Name = name;
             Phonenumber = phoneNumber;
             Email = email;

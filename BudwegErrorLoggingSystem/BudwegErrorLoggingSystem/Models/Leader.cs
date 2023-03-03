@@ -12,9 +12,9 @@ namespace BudwegErrorLoggingSystem.Models
 
         public Leader() { }
 
-        public Leader(int leaderID, string name, int phoneNumber, string email)
+        public Leader(int leaderId, string name, int phoneNumber, string email)
         {
-            LeaderID = leaderid;
+            Id = leaderId;
             Name = name;
             Phonenumber = phoneNumber;
             Email = email;
