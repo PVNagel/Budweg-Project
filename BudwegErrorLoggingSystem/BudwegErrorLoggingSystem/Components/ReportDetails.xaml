@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:BudwegErrorSystem.Components"
+             xmlns:local="clr-namespace:BudwegErrorSystem.Components" 
+             xmlns:viewmodels="clr-namespace:BudwegErrorSystem.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:ReportDetailsVM}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -13,50 +14,79 @@
             BorderThickness="1"
             SnapsToDevicePixels="True"
             CornerRadius="5">
-            <Grid Grid.IsSharedSizeScope="True">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
+            <Grid>
+                <Grid>
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding HasSelectedReport}" Value="False">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+                    <TextBlock 
+                        Grid.Row="0" 
+                        Text="Please select a report to see the details" 
+                        TextWrapping="WrapWithOverflow"/>
+                </Grid>
 
-                <TextBlock 
+                <Grid Grid.IsSharedSizeScope="True">
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding HasSelectedReport}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock 
                     Grid.Row="0"
                     FontSize="24"
                     Text="{Binding Report}" />
 
-                <Grid Grid.Row="1" Margin="0 20 0 0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" SharedSizeGroup="Label"/>
-                        <ColumnDefinition Width="auto" />
-                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="1" Margin="0 20 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" SharedSizeGroup="Label"/>
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
 
-                    <TextBlock 
+                        <TextBlock 
                         Grid.Row="0"
                         FontWeight="Bold"
                         Text="Error Message" />
 
-                    <TextBlock 
+                        <TextBlock 
                         Grid.Column="1" 
                         Margin="20 0 0 0" 
                         Text="{Binding ErrorMessageDisplay}" />
-                </Grid>
+                    </Grid>
 
-                <Grid Grid.Row="2" Margin="0 20 0 0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" SharedSizeGroup="Label"/>
-                        <ColumnDefinition Width="auto" />
-                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="2" Margin="0 20 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" SharedSizeGroup="Label"/>
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
 
-                    <TextBlock 
+                        <TextBlock 
                         Grid.Row="0"
                         FontWeight="Bold"
-                        Text="Reason" />
+                        Text="Is resolved?" />
 
-                    <TextBlock 
+                        <TextBlock 
                         Grid.Column="1" 
-                        Text="{Binding ReasonDisplay}" 
+                        Text="{Binding IsResolved}" 
                         Margin="20 0 0 0"/>
+                    </Grid>
                 </Grid>
             </Grid>
         </Border>

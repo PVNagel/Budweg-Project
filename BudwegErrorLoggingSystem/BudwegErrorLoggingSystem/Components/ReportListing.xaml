@@ -22,7 +22,9 @@
                     Background="White"
                     CornerRadius="5" />
 
-                <ListView BorderThickness="0" ItemsSource="{Binding ReportListingItemVMs}">
+                <ListView BorderThickness="0" 
+                          SelectedItem="{Binding SelectedReportListingItemVM}" 
+                          ItemsSource="{Binding ReportListingItemVMs}">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch" />

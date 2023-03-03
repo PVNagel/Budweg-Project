@@ -1,4 +1,5 @@
-﻿using BudwegErrorSystem.ViewModels;
+﻿using BudwegErrorLoggingSystem.Stores;
+using BudwegErrorSystem.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -9,16 +10,19 @@ using System.Windows;
 
 namespace BudwegErrorLoggingSystem
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
+        private readonly SelectedReportStore _selectedReportStore;
+
+        public App()
+        {
+            _selectedReportStore = new SelectedReportStore();  
+        }
         protected override void OnStartup(StartupEventArgs e)
         {
             MainWindow = new MainWindow
             {
-                DataContext = new ReportsViewVM()
+                DataContext = new ReportsViewVM(_selectedReportStore)
             };
             MainWindow.Show();
 

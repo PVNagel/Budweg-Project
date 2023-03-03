@@ -1,9 +1,11 @@
 ﻿using System;
+using BudwegErrorLoggingSystem.Stores;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BudwegErrorLoggingSystem.Models;
 
 namespace BudwegErrorSystem.ViewModels
 {
@@ -11,15 +13,37 @@ namespace BudwegErrorSystem.ViewModels
     {
 
         private readonly ObservableCollection<ReportListingItemVM> _reportListingItemVMs;
+
+        private readonly SelectedReportStore _selectedReportStore;
+
         public IEnumerable<ReportListingItemVM> ReportListingItemVMs => _reportListingItemVMs;
 
-        public ReportListingVM()
-        {
-            _reportListingItemVMs= new ObservableCollection<ReportListingItemVM>();
+        private ReportListingItemVM _selectedReportListingItemVM;
 
-            _reportListingItemVMs.Add(new ReportListingItemVM("Skrue Løs"));
-            _reportListingItemVMs.Add(new ReportListingItemVM("Skæv vinkel"));
-            _reportListingItemVMs.Add(new ReportListingItemVM("Bla bla"));
+        public ReportListingItemVM SelectedReportListingItemVM
+        {
+            get
+            {
+                return _selectedReportListingItemVM;
+            }
+            set
+            {
+                _selectedReportListingItemVM = value;
+                OnPropertyChanged(nameof(SelectedReportListingItemVM));
+
+                _selectedReportStore.SelectedReport = _selectedReportListingItemVM.Report; //selectedReportListingItemVM?
+            }
+        }
+
+        public ReportListingVM(SelectedReportStore selectedReportStore)
+        {
+            _selectedReportStore = selectedReportStore;
+            _reportListingItemVMs = new ObservableCollection<ReportListingItemVM>();
+
+            _reportListingItemVMs.Add(new ReportListingItemVM(new Report("Fejl kode 22", "Skrue løs", true)));
+            _reportListingItemVMs.Add(new ReportListingItemVM(new Report("Fejlk kode 46","Forkert kasse", false)));
+            _reportListingItemVMs.Add(new ReportListingItemVM(new Report("Bla bla", "blø blø", false)));
+           
         }
     }
 }
