@@ -6,22 +6,26 @@ using System.Threading.Tasks;
 
 namespace BudwegErrorLoggingSystem.Models
 {
-    public class ErrorReport :Worker :Inspector
+    public class ErrorReport
     {
-        public int ReportID { get; set; }
+        public int Id { get; set; }
 
         public string ErrorType { get; set; }
 
         public string ErrorDescription { get; set; }
 
+        public int WorkerID { get; set; }
+
+        public int InspectorID { get; set; }
         public ErrorReport() { }
 
-        public ErrorReport(int RaportID, string ErrorType, string ErrorDescription, int WorkerID, int InspectorID)
-
-        RaportID = raportID;
-        ErrorType = errorType;
-        ErrorDescription = errorDescription;
-        WorkerID = workerID;
-        InspectorID = inspectorID;
+        public ErrorReport(int reportID, string errorType, string errorDescription, int workerID, int inspectorID)
+        {
+            ReportID = reportID;
+            ErrorType = errorType;
+            ErrorDescription = errorDescription;
+            WorkerID = workerID;
+            InspectorID = inspectorID;
+        }
     }
 }

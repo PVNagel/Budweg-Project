@@ -9,12 +9,12 @@ namespace BudwegErrorLoggingSystem.Models
     // Worker class
     public class Worker : Person
     {
-        public int WorkerID { get; set; }
+        public int Id { get; set; }
 
         public Worker() { }
-        public Worker (int workerID, string name, int phoneNumber, string email)
+        public Worker(int workerId, string name, int phoneNumber, string email)
         {
-            WorkerID = workerID;
+            WorkerId = workerId;
             Name = name;
             Phonenumber = phoneNumber;
             Email = email;

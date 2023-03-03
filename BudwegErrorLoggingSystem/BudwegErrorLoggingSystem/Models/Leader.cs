@@ -8,13 +8,13 @@ namespace BudwegErrorLoggingSystem.Models
 {
     public class Leader: Person
     {
-        public int LeaderID { get; set; }
+        public int Id { get; set; }
 
         public Leader() { }
 
         public Leader(int leaderID, string name, int phoneNumber, string email)
         {
-            LeaderID = leaderID;
+            LeaderID = leaderid;
             Name = name;
             Phonenumber = phoneNumber;
             Email = email;

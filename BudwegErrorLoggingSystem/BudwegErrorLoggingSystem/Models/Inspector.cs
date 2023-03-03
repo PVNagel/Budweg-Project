@@ -8,13 +8,13 @@ namespace BudwegErrorLoggingSystem.Models
 {
     public class Inspector: Person
     {
-        public int InspectorId { get; set; }
+        public int Id { get; set; }
 
         public Inspector() { }
 
         public Inspector(int inspectorId)
         {
-            InspectorId = inspectorId;
+            Id = inspectorId;
         }
     }
 }
