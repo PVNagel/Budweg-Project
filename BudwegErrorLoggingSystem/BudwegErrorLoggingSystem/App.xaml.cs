@@ -22,7 +22,7 @@ namespace BudwegErrorLoggingSystem
         }
         protected override void OnStartup(StartupEventArgs e)
         {
-            ReportVM reportVM = new ReportVM(_selectedReportStore);
+            ReportVM reportVM = new ReportVM(_selectedReportStore, _modalNavigationStore);
 
             MainWindow = new MainWindow()
             {

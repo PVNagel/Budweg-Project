@@ -18,6 +18,9 @@
                 Text="Edit Error Report"/>
 
 
-        <components:ReportDetailsForm Grid.Row="1" Margin="0 30 0 0"/>
+        <components:ReportDetailsForm 
+            Grid.Row="1" 
+            Margin="0 30 0 0"
+            DataContext="{Binding ReportDetailsFormVM}"/>
     </Grid>
 </UserControl>

@@ -1,8 +1,11 @@
-﻿using System;
+﻿using BudwegErrorLoggingSystem.Commands;
+using BudwegErrorLoggingSystem.Stores;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace BudwegErrorLoggingSystem.ViewModels
 {
@@ -10,9 +13,10 @@ namespace BudwegErrorLoggingSystem.ViewModels
     {
         public ReportDetailsFormVM ReportDetailsFormVM { get; }
 
-        public AddReportVM()
+        public AddReportVM(ModalNavigationStore modalNavigationStore)
         {
-            ReportDetailsFormVM= new ReportDetailsFormVM();
+            ICommand cancelCommand = new CloseModalCommand(modalNavigationStore);
+            ReportDetailsFormVM = new ReportDetailsFormVM(null, cancelCommand);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using BudwegErrorLoggingSystem.Stores;
+﻿using BudwegErrorLoggingSystem.Commands;
+using BudwegErrorLoggingSystem.Stores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,12 @@ namespace BudwegErrorLoggingSystem.ViewModels
 
         public ICommand AddReportCommand { get; }
 
-        public ReportVM(SelectedReportStore _selectedReportStore)
+        public ReportVM(SelectedReportStore _selectedReportStore, ModalNavigationStore modalNavigationStore)
         {
             ReportListingVM= new ReportListingVM(_selectedReportStore);
             ReportDetailsVM= new ReportDetailsVM(_selectedReportStore);
+
+            AddReportCommand = new OpenAddReportCommand(modalNavigationStore);
         }
     }
 }

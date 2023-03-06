@@ -9,7 +9,7 @@ namespace BudwegErrorLoggingSystem.Commands
 {
     public abstract class CommandBase : ICommand
     {
-        public event EventHandler? CanExecuteChanged;
+        public event EventHandler CanExecuteChanged;
 
         public virtual bool CanExecute(object? parameter)
         {
@@ -17,5 +17,10 @@ namespace BudwegErrorLoggingSystem.Commands
         }
 
         public abstract void Execute(object? parameter);
+
+        protected virtual void OnCanExecuteChanged()
+        {
+            CanExecuteChanged?.Invoke(this, new EventArgs()); 
+        }
     }
 }
