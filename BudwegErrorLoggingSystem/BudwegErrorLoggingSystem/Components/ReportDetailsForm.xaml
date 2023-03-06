@@ -77,7 +77,7 @@
                 Margin="0 0 5 0"
                 Command="{Binding SubmitCommand}" 
                 Content="Submit" 
-                IsEnabled="False"/>
+                IsEnabled="{Binding CanSubmit}"/>
             <Button 
                 Command="{Binding CancelCommand}" 
                 Content="Cancel"

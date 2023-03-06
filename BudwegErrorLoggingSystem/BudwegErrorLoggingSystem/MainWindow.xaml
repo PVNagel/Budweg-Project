@@ -1,20 +1,33 @@
-﻿<Window x:Class="BudwegErrorLoggingSystem.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:local="clr-namespace:BudwegErrorLoggingSystem"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:views="clr-namespace:BudwegErrorLoggingSystem.Views"
-        Title="BudwegErrorLoggingSystem" 
-        Height="450" 
-        Width="800"
-        FontSize="14"
-        mc:Ignorable="d">
+﻿<Window 
+    x:Class="BudwegErrorLoggingSystem.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BudwegErrorLoggingSystem"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:views="clr-namespace:BudwegErrorLoggingSystem.Views"  
+    xmlns:vms="clr-namespace:BudwegErrorLoggingSystem.ViewModels"  
+    xmlns:custom="clr-namespace:ModalControl;assembly=ModalControl"
+    Title="BudwegErrorLoggingSystem" 
+    Height="450" 
+    Width="800"
+    FontSize="14"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vms:AddReportVM}">
+            <views:AddReportView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vms:EditReportVM}">
+            <views:EditReportView />
+        </DataTemplate>
+    </Window.Resources>
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="25">
-            <views:AddReportView/>
-            <views:EditReportView/>
-            <!--<views:ReportsView />-->
-        </StackPanel>
+        <Grid >
+            <custom:Modal Panel.ZIndex="1" IsOpen="{Binding IsModalOpen}">
+                <ContentControl Margin="50 25" Content="{Binding CurrentModalViewModel}" />
+            </custom:Modal>
+
+            <views:ReportsView Margin="25" DataContext="{Binding ReportVM}"/>
+        </Grid>
     </ScrollViewer>
 </Window>

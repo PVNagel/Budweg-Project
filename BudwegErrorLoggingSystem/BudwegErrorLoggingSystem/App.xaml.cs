@@ -12,17 +12,21 @@ namespace BudwegErrorLoggingSystem
 {
     public partial class App : Application
     {
+        private readonly ModalNavigationStore _modalNavigationStore;
         private readonly SelectedReportStore _selectedReportStore;
 
         public App()
         {
+            _modalNavigationStore = new ModalNavigationStore();
             _selectedReportStore = new SelectedReportStore();  
         }
         protected override void OnStartup(StartupEventArgs e)
         {
-            MainWindow = new MainWindow
+            ReportVM reportVM = new ReportVM(_selectedReportStore);
+
+            MainWindow = new MainWindow()
             {
-                DataContext = new ReportsViewVM(_selectedReportStore)
+                DataContext = new MainViewModel(_modalNavigationStore, reportVM) 
             };
             MainWindow.Show();
 

@@ -8,14 +8,14 @@ using System.Windows.Input;
 
 namespace BudwegErrorLoggingSystem.ViewModels
 {
-    public class ReportsViewVM : ViewModelBase
+    public class ReportVM : ViewModelBase
     {
         public ReportListingVM ReportListingVM { get; }
         public ReportDetailsVM ReportDetailsVM { get; }
 
         public ICommand AddReportCommand { get; }
 
-        public ReportsViewVM(SelectedReportStore _selectedReportStore)
+        public ReportVM(SelectedReportStore _selectedReportStore)
         {
             ReportListingVM= new ReportListingVM(_selectedReportStore);
             ReportDetailsVM= new ReportDetailsVM(_selectedReportStore);
