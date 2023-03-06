@@ -1,5 +1,5 @@
 ﻿using BudwegErrorLoggingSystem.Stores;
-using BudwegErrorSystem.ViewModels;
+using BudwegErrorLoggingSystem.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Configuration;

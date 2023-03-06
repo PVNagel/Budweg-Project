@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BudwegErrorLoggingSystem.Models;
 
-namespace BudwegErrorSystem.ViewModels
+namespace BudwegErrorLoggingSystem.ViewModels
 {
     public class ReportListingVM : ViewModelBase
     {

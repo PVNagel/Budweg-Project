@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BudwegErrorLoggingSystem.Views
+namespace BudwegErrorLoggingSystem.Components
 {
     /// <summary>
-    /// Interaction logic for ReportsView.xaml
+    /// Interaction logic for ReportDetailsForm.xaml
     /// </summary>
-    public partial class ReportsView : UserControl
+    public partial class ReportDetailsForm : UserControl
     {
-        public ReportsView()
+        public ReportDetailsForm()
         {
             InitializeComponent();
         }

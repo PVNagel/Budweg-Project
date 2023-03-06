@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BudwegErrorSystem.Components
+namespace BudwegErrorLoggingSystem.Components
 {
     /// <summary>
     /// Interaction logic for ReportDetails.xaml

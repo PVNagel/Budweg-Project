@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BudwegErrorSystem.ViewModels
+namespace BudwegErrorLoggingSystem.ViewModels
 {
     public class ViewModelBase : INotifyPropertyChanged
     {

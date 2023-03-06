@@ -1,10 +1,11 @@
-﻿<UserControl x:Class="BudwegErrorSystem.Views.ReportsView"
+﻿<UserControl x:Class="BudwegErrorLoggingSystem.Views.ReportsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:components="clr-namespace:BudwegErrorSystem.Components"             
+             xmlns:components="clr-namespace:BudwegErrorLoggingSystem.Components"             
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:BudwegErrorSystem.Views" 
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:viewmodels="clr-namespace:BudwegErrorSystem.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:ReportsViewVM}"
+             xmlns:local="clr-namespace:BudwegErrorLoggingSystem.Views" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:viewmodels="clr-namespace:BudwegErrorLoggingSystem.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:ReportsViewVM}"
              d:DesignHeight="450" 
              d:DesignWidth="800"
              mc:Ignorable="d">
@@ -22,7 +23,7 @@
 
             <TextBlock 
                 Grid.Column="0" 
-                FontSize="32"
+                Style="{StaticResource PageHeader}"
                 Text="Error Reports"/>
 
             <Button 

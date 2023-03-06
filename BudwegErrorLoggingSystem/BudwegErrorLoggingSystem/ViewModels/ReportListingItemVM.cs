@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace BudwegErrorSystem.ViewModels
+namespace BudwegErrorLoggingSystem.ViewModels
 {
     public class ReportListingItemVM : ViewModelBase
     {
