@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BudwegErrorLoggingSystem.Models;
+using System.Windows.Input;
+using BudwegErrorLoggingSystem.Commands;
 
 namespace BudwegErrorLoggingSystem.ViewModels
 {
@@ -35,15 +37,20 @@ namespace BudwegErrorLoggingSystem.ViewModels
             }
         }
 
-        public ReportListingVM(SelectedReportStore selectedReportStore)
+        public ReportListingVM(SelectedReportStore selectedReportStore, ModalNavigationStore modalNavigationStore)
         {
             _selectedReportStore = selectedReportStore;
             _reportListingItemVMs = new ObservableCollection<ReportListingItemVM>();
 
-            _reportListingItemVMs.Add(new ReportListingItemVM(new Report("Fejl kode 22", "Skrue løs", true)));
-            _reportListingItemVMs.Add(new ReportListingItemVM(new Report("Fejlk kode 46","Forkert kasse", false)));
-            _reportListingItemVMs.Add(new ReportListingItemVM(new Report("Bla bla", "blø blø", false)));
-           
+            AddReport(new Report("Fejl kode 22", "Skrue løs", true), modalNavigationStore);
+            AddReport(new Report("Fejlk kode 46", "Forkert kasse", false), modalNavigationStore);
+            AddReport(new Report("Bla bla", "blø blø", false), modalNavigationStore);           
+        }
+
+        private void AddReport(Report report, ModalNavigationStore modalNavigationStore)
+        {
+            ICommand editCommand = new OpenEditReportCommand(report, modalNavigationStore);
+            _reportListingItemVMs.Add(new ReportListingItemVM(report, editCommand));
         }
     }
 }

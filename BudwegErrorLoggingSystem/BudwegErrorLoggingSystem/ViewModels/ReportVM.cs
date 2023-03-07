@@ -18,7 +18,7 @@ namespace BudwegErrorLoggingSystem.ViewModels
 
         public ReportVM(SelectedReportStore _selectedReportStore, ModalNavigationStore modalNavigationStore)
         {
-            ReportListingVM= new ReportListingVM(_selectedReportStore);
+            ReportListingVM= new ReportListingVM(_selectedReportStore, modalNavigationStore);
             ReportDetailsVM= new ReportDetailsVM(_selectedReportStore);
 
             AddReportCommand = new OpenAddReportCommand(modalNavigationStore);

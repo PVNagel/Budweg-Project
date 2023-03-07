@@ -18,9 +18,10 @@ namespace BudwegErrorLoggingSystem.ViewModels
         public ICommand DeleteCommand { get; }
 
 
-        public ReportListingItemVM(Report report)
+        public ReportListingItemVM(Report report, ICommand editCommand)
         {
             Report = report;
+            EditCommand = editCommand;
         }
     }
 }
