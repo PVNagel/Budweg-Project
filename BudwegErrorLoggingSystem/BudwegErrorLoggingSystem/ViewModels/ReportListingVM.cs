@@ -13,15 +13,15 @@ namespace BudwegErrorLoggingSystem.ViewModels
 {
     public class ReportListingVM : ViewModelBase
     {
+        private readonly ReportStore _reportStore;
+        private readonly SelectedReportStore _selectedReportStore;
+        private readonly ModalNavigationStore _modalNavigationStore;
 
         private readonly ObservableCollection<ReportListingItemVM> _reportListingItemVMs;
-
-        private readonly SelectedReportStore _selectedReportStore;
 
         public IEnumerable<ReportListingItemVM> ReportListingItemVMs => _reportListingItemVMs;
 
         private ReportListingItemVM _selectedReportListingItemVM;
-
         public ReportListingItemVM SelectedReportListingItemVM
         {
             get
@@ -33,23 +33,34 @@ namespace BudwegErrorLoggingSystem.ViewModels
                 _selectedReportListingItemVM = value;
                 OnPropertyChanged(nameof(SelectedReportListingItemVM));
 
-                _selectedReportStore.SelectedReport = _selectedReportListingItemVM.Report; //selectedReportListingItemVM?
+                _selectedReportStore.SelectedReport = _selectedReportListingItemVM?.Report; 
             }
         }
-
-        public ReportListingVM(SelectedReportStore selectedReportStore, ModalNavigationStore modalNavigationStore)
+        public ReportListingVM(ReportStore reportStore, SelectedReportStore selectedReportStore, ModalNavigationStore modalNavigationStore)
         {
+            _reportStore = reportStore;
             _selectedReportStore = selectedReportStore;
+            _modalNavigationStore = modalNavigationStore;
             _reportListingItemVMs = new ObservableCollection<ReportListingItemVM>();
 
-            AddReport(new Report("Fejl kode 22", "Skrue løs", true), modalNavigationStore);
-            AddReport(new Report("Fejlk kode 46", "Forkert kasse", false), modalNavigationStore);
-            AddReport(new Report("Bla bla", "blø blø", false), modalNavigationStore);           
+            _reportStore.ReportAdded += ReportStore_ReportAdded;          
         }
 
-        private void AddReport(Report report, ModalNavigationStore modalNavigationStore)
+        protected override void Dispose()
         {
-            ICommand editCommand = new OpenEditReportCommand(report, modalNavigationStore);
+            _reportStore.ReportAdded -= ReportStore_ReportAdded;
+
+            base.Dispose();
+        }
+
+        private void ReportStore_ReportAdded(Report report)
+        {
+            AddReport(report);
+        }
+
+        private void AddReport(Report report)
+        {
+            ICommand editCommand = new OpenEditReportCommand(report, _modalNavigationStore);
             _reportListingItemVMs.Add(new ReportListingItemVM(report, editCommand));
         }
     }

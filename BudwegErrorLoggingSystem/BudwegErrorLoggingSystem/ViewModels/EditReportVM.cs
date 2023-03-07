@@ -16,8 +16,9 @@ namespace BudwegErrorLoggingSystem.ViewModels
 
         public EditReportVM(Report report, ModalNavigationStore modalNavigationStore)
         {
+            ICommand submitCommand = new EditReportCommand(modalNavigationStore);
             ICommand cancelCommand = new CloseModalCommand(modalNavigationStore);
-            ReportDetailsFormVM = new ReportDetailsFormVM(null, cancelCommand)
+            ReportDetailsFormVM = new ReportDetailsFormVM(submitCommand, cancelCommand)
             {
                 Report = report.ReportDisplay,
                 ErrorMessage = report.ErrorMessage,

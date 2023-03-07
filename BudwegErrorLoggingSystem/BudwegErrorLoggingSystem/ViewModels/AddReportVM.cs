@@ -13,10 +13,11 @@ namespace BudwegErrorLoggingSystem.ViewModels
     {
         public ReportDetailsFormVM ReportDetailsFormVM { get; }
 
-        public AddReportVM(ModalNavigationStore modalNavigationStore)
+        public AddReportVM(ReportStore reportStore, ModalNavigationStore modalNavigationStore)
         {
+            ICommand submitCommand = new AddReportCommand(this, reportStore, modalNavigationStore);
             ICommand cancelCommand = new CloseModalCommand(modalNavigationStore);
-            ReportDetailsFormVM = new ReportDetailsFormVM(null, cancelCommand);
+            ReportDetailsFormVM = new ReportDetailsFormVM(submitCommand, cancelCommand);
         }
     }
 }
