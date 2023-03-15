@@ -8,5 +8,6 @@ namespace BudwegErrorLoggingSystem.ViewModels
 {
     internal class MainViewModel
     {
+
     }
 }
