@@ -8,12 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Persistens\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="DropdownMenu.WPF" Version="1.0.0" />
     <PackageReference Include="SimpleModal.WPF" Version="1.0.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
   </ItemGroup>
 
 </Project>
