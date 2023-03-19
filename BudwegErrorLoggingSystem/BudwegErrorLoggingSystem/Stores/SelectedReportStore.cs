@@ -9,8 +9,9 @@ namespace BudwegErrorLoggingSystem.Stores
 {
     public class SelectedReportStore
     {
-        private Report _selectedReport;
+        private readonly ReportStore _reportStore;
 
+        private Report _selectedReport;
         public Report SelectedReport
         {
             get 
@@ -25,5 +26,20 @@ namespace BudwegErrorLoggingSystem.Stores
         }
 
         public event Action SelectedReportChanged; 
+
+        public SelectedReportStore(ReportStore reportStore)
+        {
+            _reportStore = reportStore;
+
+            _reportStore.ReportUpdated += ReportStore_ReportUpdated;
+        }
+
+        private void ReportStore_ReportUpdated(Report report)
+        {
+            if (report.Id == SelectedReport?.Id)
+            {
+                SelectedReport = report; 
+            }
+        }
     }
 }

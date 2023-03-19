@@ -20,7 +20,7 @@ namespace BudwegErrorLoggingSystem
         {
             _modalNavigationStore = new ModalNavigationStore();
             _reportStore = new ReportStore();
-            _selectedReportStore = new SelectedReportStore();  
+            _selectedReportStore = new SelectedReportStore(_reportStore);  
         }
         protected override void OnStartup(StartupEventArgs e)
         {

@@ -33,7 +33,7 @@ namespace BudwegErrorLoggingSystem.ViewModels
                 _selectedReportListingItemVM = value;
                 OnPropertyChanged(nameof(SelectedReportListingItemVM));
 
-                _selectedReportStore.SelectedReport = _selectedReportListingItemVM?.Report; 
+                _selectedReportStore.SelectedReport = _selectedReportListingItemVM?.Report;
             }
         }
         public ReportListingVM(ReportStore reportStore, SelectedReportStore selectedReportStore, ModalNavigationStore modalNavigationStore)
@@ -43,12 +43,14 @@ namespace BudwegErrorLoggingSystem.ViewModels
             _modalNavigationStore = modalNavigationStore;
             _reportListingItemVMs = new ObservableCollection<ReportListingItemVM>();
 
-            _reportStore.ReportAdded += ReportStore_ReportAdded;          
+            _reportStore.ReportAdded += ReportStore_ReportAdded;
+            _reportStore.ReportUpdated += ReportStore_ReportUpdated;
         }
 
         protected override void Dispose()
         {
             _reportStore.ReportAdded -= ReportStore_ReportAdded;
+            _reportStore.ReportUpdated -= ReportStore_ReportUpdated;
 
             base.Dispose();
         }
@@ -57,11 +59,22 @@ namespace BudwegErrorLoggingSystem.ViewModels
         {
             AddReport(report);
         }
+        private void ReportStore_ReportUpdated(Report report)
+        {
+            ReportListingItemVM reportVM =
+                _reportListingItemVMs.FirstOrDefault(y => y.Report.Id == report.Id);
+
+            if (reportVM != null)
+            {
+                reportVM.Update(report);
+            }
+        }
 
         private void AddReport(Report report)
         {
-            ICommand editCommand = new OpenEditReportCommand(report, _modalNavigationStore);
-            _reportListingItemVMs.Add(new ReportListingItemVM(report, editCommand));
+            ReportListingItemVM itemViewModel =
+               new ReportListingItemVM(report, _reportStore, _modalNavigationStore);
+            _reportListingItemVMs.Add(itemViewModel);
         }
     }
 }

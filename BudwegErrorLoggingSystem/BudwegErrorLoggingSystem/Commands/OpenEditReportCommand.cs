@@ -11,20 +11,25 @@ namespace BudwegErrorLoggingSystem.Commands
 {
     public class OpenEditReportCommand : CommandBase
     {
-        private readonly Report _report;
         private readonly ModalNavigationStore _modalNavigationStore;
+        private readonly ReportListingItemVM _reportListingItemVM;
+        private readonly ReportStore _reportStore;
 
-        public OpenEditReportCommand(
-            Report report,
+        public OpenEditReportCommand(ReportListingItemVM reportListingItemVM, 
+            ReportStore reportStore, 
             ModalNavigationStore modalNavigationStore)
         {
-            _report = report;
+            _reportListingItemVM = reportListingItemVM;
+            _reportStore = reportStore;
             _modalNavigationStore = modalNavigationStore;
         }
 
         public override void Execute(object? parameter)
         {
-            EditReportVM editReportVM = new EditReportVM(_report, _modalNavigationStore);
+            Report report = _reportListingItemVM.Report;
+
+            EditReportVM editReportVM = 
+                new EditReportVM(report, _reportStore, _modalNavigationStore);
             _modalNavigationStore.CurrentViewModel = editReportVM;
         }
     }

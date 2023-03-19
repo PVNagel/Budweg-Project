@@ -26,6 +26,7 @@ namespace BudwegErrorLoggingSystem.Commands
             ReportDetailsFormVM formVM = _addReportVM.ReportDetailsFormVM;
 
             Report report = new Report(
+                Guid.NewGuid(),
                 formVM.Report, 
                 formVM.ErrorMessage, 
                 formVM.IsResolved);
