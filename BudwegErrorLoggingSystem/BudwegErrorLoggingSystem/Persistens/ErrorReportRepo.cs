@@ -1,4 +1,5 @@
-﻿using BudwegErrorLoggingSystem.Models;
+﻿using BudwegErrorLoggingSystem.Commands;
+using BudwegErrorLoggingSystem.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -8,56 +9,67 @@ using System.Threading.Tasks;
 
 namespace BudwegErrorLoggingSystem.Persistens
 {
-    public class ErrorReportRepo
+    public class ErrorReportRepo : IDisposable
     {
+
+        public SqlConnection Connection { get; private set; }
         public ErrorReportRepo() 
         {
             var dataSource = "(local)\\SQLEXPRESS";
             var initialCatalog = "BudwegDevelopment";
 
-            var connectionString = $"Data Source={dataSource};Initial Catalog={initialCatalog};Integrated Security=True;Trust Server Certificate=true";
-            var connection = new SqlConnection(connectionString);
+            var connectionString = $"Data Source={dataSource};Initial Catalog={initialCatalog};Integrated Security=True;TrustServerCertificate=True";
+            Connection = new SqlConnection(connectionString);
+            Connection.Open();
 
-            connection.Open();
-
-            var toInsert = new ErrorReport
-            {
-                ErrorCode = "2020",
-                ErrorDescription = "Bla bla",
-                ErrorType = "Blø blø"
-
-            };
-            Insert(connection, toInsert);
-            Read(connection);
-            connection.Close();
+            
         }
-        private static void Insert(SqlConnection connection, ErrorReport errorReport)
+        public void Save(Report errorReport)
         {
             var commandString = $"INSERT INTO ErrorReport  (ErrorCode, ErrorType, ErrorDescription, WorkerID, InspectorID, IsResolved) " +
-                $"VALUES ({errorReport.ErrorCode}, '{errorReport.ErrorType}', '{errorReport.ErrorDescription}', 1, 1, 1);";
-            var command = new SqlCommand(commandString, connection);
+                $"VALUES ({errorReport.ReportDisplay}, 'placeholder', '{errorReport.ErrorMessage}', 1, 1, {Convert.ToInt32(errorReport.IsResolved)});";
+            var command = new SqlCommand(commandString, Connection);
 
             command.ExecuteReader().Close();
         }
 
 
-        private static void Read(SqlConnection connection)
+        public Report? Get(int id)
         {
-            var commandString = "SELECT * FROM dbo.ErrorReport";
-            var command = new SqlCommand(commandString, connection);
+            var commandString = $"SELECT * FROM dbo.ErrorReport WHERE ErrorReportID = {id}";
+            var command = new SqlCommand(commandString, Connection);
 
             using (var reader = command.ExecuteReader())
             {
                 while (reader.Read())
                 {
-                    Console.Write(reader[0].ToString());
-                    Console.Write(reader[1].ToString());
-                    Console.Write(reader[2].ToString());
-                    Console.Write(reader[3].ToString());
-                    Console.WriteLine();
+                    var result = new Report(reportDisplay: reader[1].ToString(), errorMessage: reader[3].ToString(), isResolved: bool.Parse(reader[6].ToString()));
+                    return result;
                 }
-
             }
+            return null;
+        }
+        public ICollection<Report> GetAll()
+        {
+            var commandString = $"SELECT * FROM dbo.ErrorReport";
+            var command = new SqlCommand(commandString, Connection);
+
+            var result = new List<Report>();
+
+            using (var reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    result.Add(new Report(reportDisplay: reader[1].ToString(), errorMessage: reader[3].ToString(), isResolved: bool.Parse(reader[6].ToString())));
+                    
+                }
+            }
+            return result;
+        }
+
+        public void Dispose()
+        {
+            Connection.Close();
         }
     }
 }

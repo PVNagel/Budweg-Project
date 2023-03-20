@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using BudwegErrorLoggingSystem.Models;
 using System.Windows.Input;
 using BudwegErrorLoggingSystem.Commands;
+using BudwegErrorLoggingSystem.Persistens;
 
 namespace BudwegErrorLoggingSystem.ViewModels
 {
@@ -42,6 +43,15 @@ namespace BudwegErrorLoggingSystem.ViewModels
             _selectedReportStore = selectedReportStore;
             _modalNavigationStore = modalNavigationStore;
             _reportListingItemVMs = new ObservableCollection<ReportListingItemVM>();
+
+            var repo = new ErrorReportRepo();
+
+            var reports = repo.GetAll();
+            foreach(var report in reports)
+            {
+                _reportListingItemVMs.Add(new ReportListingItemVM(report, _reportStore, _modalNavigationStore));
+
+            }
 
             _reportStore.ReportAdded += ReportStore_ReportAdded;
             _reportStore.ReportUpdated += ReportStore_ReportUpdated;
