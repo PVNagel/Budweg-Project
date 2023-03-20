@@ -33,8 +33,7 @@ namespace BudwegErrorLoggingSystem.Commands
 
             ReportDetailsFormVM formVM = _addReportVM.ReportDetailsFormVM;
 
-            Report report = new Report(
-                Guid.NewGuid(),
+            Report report = new Report(                
                 formVM.Report, 
                 formVM.ErrorMessage, 
                 formVM.IsResolved);
@@ -44,6 +43,8 @@ namespace BudwegErrorLoggingSystem.Commands
                 _errorReportRepo.Save(report);
 
                 await _reportStore.Add(report);
+
+                _errorReportRepo.DeleteRow(report.Id);
 
                 _modalNavigationStore.Close();
             }

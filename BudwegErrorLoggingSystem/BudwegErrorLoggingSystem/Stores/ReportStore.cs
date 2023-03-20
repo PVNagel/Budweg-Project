@@ -11,6 +11,7 @@ namespace BudwegErrorLoggingSystem.Stores
     {
         public event Action<Report> ReportAdded;
         public event Action<Report> ReportUpdated;
+        public event Action<Report> ReportDeleted;
 
         public async Task Add(Report report)
         {
@@ -20,6 +21,11 @@ namespace BudwegErrorLoggingSystem.Stores
         public async Task Update(Report report)
         {
             ReportUpdated?.Invoke(report);
+        }
+
+        public async Task Delete(Report report)
+        { 
+            ReportDeleted?.Invoke(report); 
         }
     }
 }

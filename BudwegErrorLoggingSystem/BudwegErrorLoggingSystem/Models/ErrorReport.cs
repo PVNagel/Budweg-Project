@@ -10,7 +10,7 @@ namespace BudwegErrorLoggingSystem.Models
 {
     public class ErrorReport
     {
-        public Guid ErrorReportID { get; set; }
+        public int ErrorReportID { get; set; }
         public string ErrorCode { get; set; }
         public string ErrorType { get; set; }
         public string ErrorDescription { get; set; }
@@ -28,7 +28,7 @@ namespace BudwegErrorLoggingSystem.Models
             IsResolved = report.IsResolved;
         }
 
-        public ErrorReport(Guid errorReportID, string errorCode, string errorType, 
+        public ErrorReport(int errorReportID, string errorCode, string errorType, 
             string errorDescription, bool isResolved, int workerId, int inspectorId)
         {
             ErrorReportID = errorReportID;

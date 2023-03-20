@@ -10,24 +10,24 @@ using System.Windows.Input;
 
 namespace BudwegErrorLoggingSystem.ViewModels
 {
-    public class EditReportVM : ViewModelBase
+    public class DeleteReportVM : ViewModelBase
     {
         public int ReportId { get; }
 
         public ReportDetailsFormVM ReportDetailsFormVM { get; }
 
-        public EditReportVM(Report report, ReportStore reportStore, ModalNavigationStore modalNavigationStore)
+        public DeleteReportVM(Report report, ReportStore reportStore, ModalNavigationStore modalNavigationStore)
         {
             ReportId = report.Id;
 
-            ICommand submitCommand = new EditReportCommand(this, reportStore, modalNavigationStore);
+            ICommand submitCommand = new DeleteReportCommand(this, reportStore, modalNavigationStore);
             ICommand cancelCommand = new CloseModalCommand(modalNavigationStore);
             ReportDetailsFormVM = new ReportDetailsFormVM(submitCommand, cancelCommand)
             {
                 Report = report.ReportDisplay,
                 ErrorMessage = report.ErrorMessage,
                 IsResolved = report.IsResolved
-                
+
             };
         }
     }

@@ -2,10 +2,13 @@
 using BudwegErrorLoggingSystem.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Automation;
 
 namespace BudwegErrorLoggingSystem.Persistens
 {
@@ -13,7 +16,7 @@ namespace BudwegErrorLoggingSystem.Persistens
     {
 
         public SqlConnection Connection { get; private set; }
-        public ErrorReportRepo() 
+        public ErrorReportRepo()
         {
             var dataSource = "(local)\\SQLEXPRESS";
             var initialCatalog = "BudwegDevelopment";
@@ -22,7 +25,7 @@ namespace BudwegErrorLoggingSystem.Persistens
             Connection = new SqlConnection(connectionString);
             Connection.Open();
 
-            
+
         }
         public void Save(Report errorReport)
         {
@@ -43,7 +46,7 @@ namespace BudwegErrorLoggingSystem.Persistens
             {
                 while (reader.Read())
                 {
-                    var result = new Report(reportDisplay: reader[1].ToString(), errorMessage: reader[3].ToString(), isResolved: bool.Parse(reader[6].ToString()));
+                    var result = new Report(id: Convert.ToInt32(reader[0].ToString()), reportDisplay: reader[1].ToString(), errorMessage: reader[3].ToString(), isResolved: bool.Parse(reader[6].ToString()));
                     return result;
                 }
             }
@@ -60,11 +63,19 @@ namespace BudwegErrorLoggingSystem.Persistens
             {
                 while (reader.Read())
                 {
-                    result.Add(new Report(reportDisplay: reader[1].ToString(), errorMessage: reader[3].ToString(), isResolved: bool.Parse(reader[6].ToString())));
-                    
+                    result.Add(new Report(id: Convert.ToInt32(reader[0].ToString()), reportDisplay: reader[1].ToString(), errorMessage: reader[3].ToString(), isResolved: bool.Parse(reader[6].ToString())));
+
                 }
             }
             return result;
+        }
+
+        public void DeleteRow(int id)
+        {
+            var commandString = $"DELETE FROM dbo.ErrorReport WHERE ErrorReportID = {id}";
+            var command = new SqlCommand(commandString, Connection);
+            command.ExecuteReader().Close();
+
         }
 
         public void Dispose()
